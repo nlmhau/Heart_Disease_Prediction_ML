@@ -1,0 +1,213 @@
+
+============================================================
+    DANH GIA & SO SANH CAC MO HINH DU DOAN BENH TIM
+============================================================
+
+============================================================
+I. LOAD DU LIEU TEST
+============================================================
+ Da load du lieu test: (184, 17)
+ - Phan bo lop: Khoe=82, Benh=102
+
+============================================================
+II. LOAD CAC MO HINH & METADATA
+============================================================
+ [OK] Da load Random Forest
+ [OK] Da load XGBoost
+ [OK] Da load Neural Network
+
+============================================================
+III. DANH GIA MO HINH: Random Forest
+============================================================
+
+ CHI TIEU HIEU SUAT:
+   - Accuracy (Do chinh xac):     0.8804 (88.04%)
+   - Precision (Do chinh xac DT): 0.8509 (85.09%)
+   - Recall (Ty le phat hien):    0.9510 (95.10%)
+   - F1-Score (Diem tong hop):    0.8981
+   - AUC-ROC:                      0.9232
+
+ CONFUSION MATRIX (MA TRAN NHAM LAN):
+   - True Negatives (TN):   65 (Du doan dung nguoi khoe)
+   - False Positives (FP):  17 (Du doan nham nguoi khoe thanh benh)
+   - False Negatives (FN):   5 (BO SOT nguoi benh - quan trong!)
+   - True Positives (TP):   97 (Du doan dung nguoi benh)
+
+ TY LE PHAN TRAM:
+   - TN:  35.3% | FP:   9.2%
+   - FN:   2.7% | TP:  52.7%
+
+ THONG TIN HUAN LUYEN:
+   - Nguong toi uu: 0.5491
+   - Tham so tot nhat: {'max_depth': 15, 'min_samples_leaf': 2, 'n_estimators': 200}
+   - CV Recall: 0.8966
+
+============================================================
+III. DANH GIA MO HINH: XGBoost
+============================================================
+
+ CHI TIEU HIEU SUAT:
+   - Accuracy (Do chinh xac):     0.8207 (82.07%)
+   - Precision (Do chinh xac DT): 0.7717 (77.17%)
+   - Recall (Ty le phat hien):    0.9608 (96.08%)
+   - F1-Score (Diem tong hop):    0.8559
+   - AUC-ROC:                      0.9064
+
+ CONFUSION MATRIX (MA TRAN NHAM LAN):
+   - True Negatives (TN):   53 (Du doan dung nguoi khoe)
+   - False Positives (FP):  29 (Du doan nham nguoi khoe thanh benh)
+   - False Negatives (FN):   4 (BO SOT nguoi benh - quan trong!)
+   - True Positives (TP):   98 (Du doan dung nguoi benh)
+
+ TY LE PHAN TRAM:
+   - TN:  28.8% | FP:  15.8%
+   - FN:   2.2% | TP:  53.3%
+
+ THONG TIN HUAN LUYEN:
+   - Nguong toi uu: 0.6711
+   - Tham so tot nhat: {'learning_rate': 0.01, 'max_depth': 3, 'n_estimators': 100, 'scale_pos_weight': 2, 'subsample': 0.8}
+
+============================================================
+III. DANH GIA MO HINH: Neural Network
+============================================================
+
+ CHI TIEU HIEU SUAT:
+   - Accuracy (Do chinh xac):     0.8696 (86.96%)
+   - Precision (Do chinh xac DT): 0.8421 (84.21%)
+   - Recall (Ty le phat hien):    0.9412 (94.12%)
+   - F1-Score (Diem tong hop):    0.8889
+   - AUC-ROC:                      0.9449
+
+ CONFUSION MATRIX (MA TRAN NHAM LAN):
+   - True Negatives (TN):   64 (Du doan dung nguoi khoe)
+   - False Positives (FP):  18 (Du doan nham nguoi khoe thanh benh)
+   - False Negatives (FN):   6 (BO SOT nguoi benh - quan trong!)
+   - True Positives (TP):   96 (Du doan dung nguoi benh)
+
+ TY LE PHAN TRAM:
+   - TN:  34.8% | FP:   9.8%
+   - FN:   3.3% | TP:  52.2%
+
+ THONG TIN HUAN LUYEN:
+   - Nguong toi uu: 0.6184
+   - Tham so tot nhat: {'alpha': 0.0001, 'hidden_layer_sizes': (64, 32), 'learning_rate_init': 0.001}
+   - CV Recall: 0.8720
+
+============================================================
+IV. BANG SO SANH TAT CA MO HINH
+============================================================
+
+       Mo hinh Accuracy Precision Recall F1-Score AUC-ROC  FN (Bo sot)
+ Random Forest   0.8804    0.8509 0.9510   0.8981  0.9232            5
+       XGBoost   0.8207    0.7717 0.9608   0.8559  0.9064            4
+Neural Network   0.8696    0.8421 0.9412   0.8889  0.9449            6
+
+============================================================
+V. XEP HANG MO HINH
+============================================================
+
+ Tieu chi xep hang: Recall (uu tien) > F1-Score > Accuracy
+
+ Hang 1 (TOT NHAT): XGBoost
+   -> Recall: 0.9608 | F1: 0.8559 | AUC: 0.9064
+   -> Bo sot (FN): 4 benh nhan
+
+ Hang 2: Random Forest
+   -> Recall: 0.9510 | F1: 0.8981 | AUC: 0.9232
+   -> Bo sot (FN): 5 benh nhan
+
+ Hang 3: Neural Network
+   -> Recall: 0.9412 | F1: 0.8889 | AUC: 0.9449
+   -> Bo sot (FN): 6 benh nhan
+
+
+============================================================
+VI. TAO BIEU DO SO SANH
+============================================================
+ [OK] Da luu: Comparison_Metrics.png
+ [OK] Da luu: Comparison_ROC.png
+ [OK] Da luu: Comparison_ConfusionMatrix.png
+
+============================================================
+VI.5. SO SANH PHAT HIEN HIDDEN PATTERNS
+============================================================
+
+ PHAN TICH KHA NANG PHAT HIEN MAU AN:
+
+ Random Forest:
+   - Rat cao (85-100%): 60 benh nhan
+   - Cao (70-85%): 27 benh nhan
+   - Trung binh (55-70%):  9 benh nhan
+   - Vua phai (40-55%):  1 benh nhan
+
+ XGBoost:
+   - Rat cao (85-100%): 57 benh nhan
+   - Cao (70-85%): 36 benh nhan
+   - Trung binh (55-70%):  4 benh nhan
+   - Vua phai (40-55%):  2 benh nhan
+   - Thap (25-40%):  3 benh nhan
+
+ Neural Network:
+   - Rat cao (85-100%): 72 benh nhan
+   - Cao (70-85%): 14 benh nhan
+   - Trung binh (55-70%): 10 benh nhan
+   - Thap (25-40%):  3 benh nhan
+
+ BANG TONG HOP KHA NANG PHAT HIEN:
+
+         Model  Nhom_xuat_hien  Benh_nhan_phat_hien
+ Random Forest               4                   97
+       XGBoost               5                  102
+Neural Network               4                   99
+
+ GIAI THICH:
+   - Nhom_xuat_hien: So nhom xac suat co benh nhan
+   - Benh_nhan_phat_hien: Tong benh nhan phat hien (xac suat >= 25%)
+
+ => Model nao co nhieu nhom hon = phat hien da dang hon
+ => Model nao phat hien nhieu benh nhan hon = nhay hon
+
+============================================================
+VIII. KET LUAN & DE XUAT
+============================================================
+
+ MO HINH TOT NHAT: XGBoost
+
+ LY DO LUA CHON:
+   1. Recall cao nhat: 0.9608 (96.1%)
+      => Phat hien duoc nhieu benh nhan nhat
+   2. So benh nhan bo sot (FN): 4 nguoi
+      => It bo sot nhat trong cac mo hinh
+   3. F1-Score: 0.8559
+      => Can bang tot giua Precision va Recall
+   4. AUC-ROC: 0.9064
+      => Kha nang phan loai tong quat tot
+
+ Y NGHIA THUC TE (Y KHOA):
+   - Trong 102 benh nhan thuc su,
+   - Mo hinh phat hien duoc: 98 nguoi (96.1%)
+   - Bo sot: 4 nguoi (3.9%)
+   => Uu tien Recall de tranh bo sot benh nhan!
+
+ CAC FILE OUTPUT DA LUU:
+   - Bieu do so sanh metrics: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs/figures/Comparison_Metrics.png
+   - Bieu do ROC: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs/figures/Comparison_ROC.png
+   - Confusion matrices: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs/figures/Comparison_ConfusionMatrix.png
+
+ DE XUAT SU DUNG:
+   1. Cho ket qua CHINH XAC cao nhat:
+      => Dung mo hinh co Precision cao nhat
+   2. Cho ket qua AN TOAN nhat (tranh bo sot):
+      => Dung mo hinh co Recall cao nhat (mo hinh tot nhat)
+   3. Cho ket qua CAN BANG:
+      => Dung mo hinh co F1-Score cao nhat
+
+   KHUYẾN CÁO: Trong y khoa, ưu tiên Recall để tránh bỏ sót bệnh nhân!
+
+ [OK] Da luu bao cao: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs\Evaluation_Report.txt
+
+============================================================
+   HOAN THANH DANH GIA!
+============================================================
+
+ File log da duoc luu tai: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs\Evaluation_log.txt

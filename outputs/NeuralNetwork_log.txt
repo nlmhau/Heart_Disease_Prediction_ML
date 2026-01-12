@@ -1,0 +1,142 @@
+============================================================
+I. LOAD DỮ LIỆU & CHUẨN BỊ
+============================================================
+ Da load du lieu: Train (734, 17), Test (184, 17)
+ - So dac trung: 17
+ - Phan bo lop (train): Khoe=328, Benh=406
+ - Phan bo lop (test): Khoe=82, Benh=102
+
+============================================================
+II. HUẤN LUYỆN & TỐI ƯU HÓA (GRID SEARCH)
+============================================================
+ Dang tim kien truc mang toi uu...
+ - Tong so to hop tham so: 18
+ - So fold cross-validation: 5
+ - Tieu chi: Recall (uu tien phat hien benh nhan)
+
+ Hoan thanh Grid Search!
+ - Best Params: {'alpha': 0.0001, 'hidden_layer_sizes': (64, 32), 'learning_rate_init': 0.001}
+ - Best Recall (CV): 0.8720
+ - So vong lap thuc te (Epochs): 39
+ - Early Stopping: Da ap dung (tu dong dung khi khong cai thien)
+
+============================================================
+III. DANH GIA QUA TRINH HOC (LEARNING DYNAMICS)
+============================================================
+ Dang ve duong cong hoi tu (Loss Curve)...
+ Da luu: NN_Loss_Curve.png
+   (Bieu do nay chung minh mo hinh da hoi tu va khong bi Overfitting)
+
+============================================================
+IV. TOI UU HOA NGUONG DU DOAN
+============================================================
+ Nguong toi uu: 0.6184
+   -> Precision=0.8868 | Recall=0.9216
+
+============================================================
+KET QUA TREN TAP TEST
+============================================================
+              precision    recall  f1-score   support
+
+        Khoe     0.8974    0.8537    0.8750        82
+        Benh     0.8868    0.9216    0.9038       102
+
+    accuracy                         0.8913       184
+   macro avg     0.8921    0.8876    0.8894       184
+weighted avg     0.8915    0.8913    0.8910       184
+
+
+ AUC-ROC Score: 0.9449
+
+ Confusion Matrix:
+   - True Negatives (TN): 70 (Du doan dung nguoi khoe)
+   - False Positives (FP): 12 (Du doan nham nguoi khoe thanh benh)
+   - False Negatives (FN): 8 (BO SOT nguoi benh - quan trong!)
+   - True Positives (TP): 94 (Du doan dung nguoi benh)
+
+============================================================
+V. TAO BIEU DO DANH GIA
+============================================================
+ Da luu: NN_ROC.png
+ Da luu: NN_Confusion_Matrix.png
+
+============================================================
+VI. GIAI MA HOP DEN (PERMUTATION IMPORTANCE)
+============================================================
+ Neural Network la mo hinh phi tuyen tinh phuc tap.
+ Su dung ky thuat Permutation de xem no 'quan tam' den dac trung nao nhat.
+ Dang tinh toan...
+
+ Top 10 dac trung quan trong:
+   1. Độ_Chênh_ST               -> 0.0283
+   2. Độ_Dốc_ST_Flat            -> 0.0277
+   3. Loại_Đau_Ngực_ATA         -> 0.0212
+   4. Độ_Dốc_ST_Up              -> 0.0207
+   5. Đau_Thắt_Vận_Động         -> 0.0168
+   6. Đường_Huyết_Đói           -> 0.0114
+   7. Loại_Đau_Ngực_NAP         -> 0.0082
+   8. Điện_Tâm_Đồ_ST            -> 0.0016
+   9. Cholesterol               -> 0.0011
+   10. Nhịp_Tim_Tối_Đa           -> 0.0011
+ Da luu: NN_Feature_Importance.png
+
+============================================================
+VII. PHAT HIEN MAU AN (HIDDEN PATTERNS)
+============================================================
+ Trich xuat cac quy luat: Trieu chung A + B + C → Benh Tim
+
+ Top 5 mau dang dan den benh tim (Neural Network phat hien):
+
+
+ Trich xuat duoc 5 patterns tu Neural Network
+ Hien thi top 5 mau dai dien theo cac muc do rui ro:
+
+1. NEU:
+      + Độ_Chênh_ST > 0.67
+      + Đường_Huyết_Đói > 0.00
+   → KET LUAN: Nguy co benh tim 92%
+   → Can cu: Neural Network phan tich tu 72 benh nhan
+   → Ghi chu: Muc do trieu chung KHAC NHAU giua cac nhom
+2. NEU:
+      + Độ_Chênh_ST > 0.95
+   → KET LUAN: Nguy co benh tim 92%
+   → Can cu: Neural Network phan tich tu 72 benh nhan
+
+3. NEU:
+      + Độ_Chênh_ST > 0.33
+      + Đường_Huyết_Đói > 0.00
+   → KET LUAN: Nguy co benh tim 77%
+   → Can cu: Neural Network phan tich tu 14 benh nhan
+   → Ghi chu: Muc do trieu chung KHAC NHAU giua cac nhom
+4. NEU:
+      + Độ_Chênh_ST > 0.37
+      + Đường_Huyết_Đói > 0.00
+   → KET LUAN: Nguy co benh tim 62%
+   → Can cu: Neural Network phan tich tu 10 benh nhan
+   → Ghi chu: Muc do trieu chung KHAC NHAU giua cac nhom
+5. NEU:
+      + Độ_Chênh_ST > 0.33
+      + Đường_Huyết_Đói > 0.00
+   → KET LUAN: Nguy co benh tim 32%
+   → Can cu: Neural Network phan tich tu 3 benh nhan
+   → Ghi chu: Muc do trieu chung KHAC NHAU giua cac nhom
+
+============================================================
+VIII. LUU MO HINH
+============================================================
+ Da luu mo hinh Neural Network: neural_network.pkl
+ Da luu metadata: nn_metadata.pkl
+
+============================================================
+ HOAN THANH!
+============================================================
+ Tom tat ket qua:
+   - Nguong toi uu: 0.6184
+   - Test Accuracy: 0.8913
+   - Test Recall: 0.9216
+   - AUC-ROC: 0.9449
+   - False Negatives: 8 (Bo sot 8 benh nhan)
+   - So epochs: 39
+
+ Cac file output da duoc luu tai: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs/figures
+ File log da duoc luu tai: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs\NeuralNetwork_log.txt

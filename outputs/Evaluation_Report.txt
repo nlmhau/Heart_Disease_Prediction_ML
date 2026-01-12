@@ -1,0 +1,38 @@
+============================================================
+    BAO CAO DANH GIA & SO SANH CAC MO HINH
+============================================================
+
+BANG SO SANH CHI TIEU:
+------------------------------------------------------------
+
+Random Forest:
+  - Accuracy:  0.8804
+  - Precision: 0.8509
+  - Recall:    0.9510
+  - F1-Score:  0.8981
+  - AUC-ROC:   0.9232
+  - Bo sot:    5 benh nhan
+
+XGBoost:
+  - Accuracy:  0.8207
+  - Precision: 0.7717
+  - Recall:    0.9608
+  - F1-Score:  0.8559
+  - AUC-ROC:   0.9064
+  - Bo sot:    4 benh nhan
+
+Neural Network:
+  - Accuracy:  0.8696
+  - Precision: 0.8421
+  - Recall:    0.9412
+  - F1-Score:  0.8889
+  - AUC-ROC:   0.9449
+  - Bo sot:    6 benh nhan
+
+============================================================
+MO HINH TOT NHAT: XGBoost
+============================================================
+  - Recall: 0.9608
+  - F1-Score: 0.8559
+  - AUC-ROC: 0.9064
+  - Bo sot: 4 benh nhan

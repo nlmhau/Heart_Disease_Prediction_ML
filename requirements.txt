@@ -1,0 +1,31 @@
+# ============================================================
+# REQUIREMENTS.TXT
+# Dự án: Dự đoán Bệnh Tim - Nhóm 7 (S26-65TTNT)
+# Python: 3.9 - 3.11
+# ============================================================
+
+# --- CƠ BẢN (Core Libraries) ---
+pandas>=2.0.0              # Xử lý dữ liệu dạng bảng
+numpy>=1.24.0              # Tính toán số học
+joblib>=1.3.0              # Lưu/load model (pickle nâng cao)
+
+# --- VISUALIZATION (Trực quan hóa) ---
+matplotlib>=3.7.0          # Vẽ biểu đồ cơ bản
+seaborn>=0.13.0            # Vẽ biểu đồ thống kê đẹp
+
+# --- MACHINE LEARNING (Học máy) ---
+scikit-learn>=1.3.0        # Random Forest, Neural Network, preprocessing
+imbalanced-learn>=0.11.0   # SMOTE (cân bằng dữ liệu)
+xgboost>=2.0.0             # XGBoost model
+optuna>=3.5.0              # Bayesian Optimization (tối ưu hyperparameters)
+shap>=0.44.0               # Model interpretability (giải thích AI)
+
+# --- WEB APP (Giao diện demo) ---
+streamlit>=1.29.0          # Web framework cho ML demo
+
+# --- JUPYTER (Tùy chọn - Phát triển/Debug) ---
+jupyterlab>=4.0.0          # Jupyter Notebook environment
+ipywidgets>=8.1.0          # Widget tương tác trong notebook
+
+# --- UTILITIES (Tiện ích) ---
+tabulate>=0.9.0            # In bảng đẹp trong terminal

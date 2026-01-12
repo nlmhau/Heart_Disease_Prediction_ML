@@ -1,0 +1,55 @@
+# ============================================================
+# .GITIGNORE - DỰ ÁN DỰ ĐOÁN BỆNH TIM
+# ============================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Models - GIỮ LẠI để có thể demo trực tiếp
+# saved_models/*.pkl
+# saved_models/*.joblib
+
+# Data (nếu file lớn)
+data/raw/
+data/interim/
+data/*.csv.gz
+
+# Logs
+*.log
+preprocessing_log.txt
+src/preprocessing_log.txt
+
+# Output figures (có thể push hoặc không)
+# outputs/figures/*.png
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+~*

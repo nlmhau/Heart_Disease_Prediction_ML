@@ -1,0 +1,280 @@
+============================================================
+I. LOAD DỮ LIỆU & CHUẨN BỊ
+============================================================
+ Đã load dữ liệu: Train (734, 17), Test (184, 17)
+
+============================================================
+II. HUẤN LUYỆN & HYPERPARAMETER TUNING (GRID SEARCH)
+============================================================
+ Đang tìm kiếm hyperparameters tốt nhất...
+
+ Hoàn thành Grid Search!
+   Best Params: {'max_depth': 15, 'min_samples_leaf': 2, 'n_estimators': 200}
+   Best Recall (CV): 0.8966
+
+============================================================
+III. TỐI ƯU NGƯỠNG DỰ ĐOÁN (THRESHOLD TUNING)
+============================================================
+ Ngưỡng tối ưu: 0.5491
+   → Precision=0.8661 | Recall=0.9510
+
+============================================================
+KẾT QUẢ TRÊN TẬP TEST
+============================================================
+              precision    recall  f1-score   support
+
+        Khỏe     0.9306    0.8171    0.8701        82
+        Bệnh     0.8661    0.9510    0.9065       102
+
+    accuracy                         0.8913       184
+   macro avg     0.8983    0.8840    0.8883       184
+weighted avg     0.8948    0.8913    0.8903       184
+
+
+ AUC-ROC Score: 0.9232
+
+ Confusion Matrix:
+   - True Negatives (TN): 67 (Dự đoán đúng người khỏe)
+   - False Positives (FP): 15 (Dự đoán nhầm người khỏe thành bệnh)
+   - False Negatives (FN): 5  (BỎ SÓT người bệnh - quan trọng!)
+   - True Positives (TP): 97 (Dự đoán đúng người bệnh)
+
+============================================================
+IV. TẠO BIỂU ĐỒ ĐÁNH GIÁ
+============================================================
+   Đã lưu: RF_ROC.png
+   Đã lưu: RF_Confusion_Matrix.png
+
+============================================================
+V. PHÂN TÍCH ĐỘ QUAN TRỌNG ĐẶC TRƯNG (PERMUTATION)
+============================================================
+🔬 Đang tính toán Permutation Importance...
+
+ Top 10 đặc trưng ảnh hưởng nhất:
+   1. Độ_Dốc_ST_Up              → 0.0467
+   2. Độ_Chênh_ST               → 0.0283
+   3. Độ_Dốc_ST_Flat            → 0.0152
+   4. Đau_Thắt_Vận_Động         → 0.0141
+   5. Đường_Huyết_Đói           → 0.0125
+   6. Cholesterol               → 0.0076
+   7. Giới_tính                 → 0.0076
+   8. Tuổi                      → 0.0071
+   9. Nhịp_Tim_Tối_Đa           → 0.0065
+   10. Loại_Đau_Ngực_ATA         → 0.0065
+    Đã lưu: RF_Permutation_Importance.png
+
+============================================================
+VI. TRÍCH XUẤT LUẬT TỪ CÂY QUYẾT ĐỊNH ĐẠI DIỆN
+============================================================
+
+ Luật quyết định (5 tầng đầu):
+|--- Nhịp_Tim_Tối_Đa <= -0.21
+|   |--- Độ_Dốc_ST_Flat <= 0.50
+|   |   |--- Đau_Thắt_Vận_Động <= 0.50
+|   |   |   |--- Độ_Dốc_ST_Up <= 0.50
+|   |   |   |   |--- class: 1.0
+|   |   |   |--- Độ_Dốc_ST_Up >  0.50
+|   |   |   |   |--- Huyết_Áp_Nghỉ <= -0.18
+|   |   |   |   |   |--- Độ_Chênh_ST <= -0.23
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Độ_Chênh_ST >  -0.23
+|   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |--- Huyết_Áp_Nghỉ >  -0.18
+|   |   |   |   |   |--- Giới_tính <= 0.50
+|   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |--- Giới_tính >  0.50
+|   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |--- Đau_Thắt_Vận_Động >  0.50
+|   |   |   |--- Tuổi <= -0.50
+|   |   |   |   |--- Cholesterol_Tuoi <= 1.01
+|   |   |   |   |   |--- class: 0.0
+|   |   |   |   |--- Cholesterol_Tuoi >  1.01
+|   |   |   |   |   |--- class: 0.0
+|   |   |   |--- Tuổi >  -0.50
+|   |   |   |   |--- Độ_Chênh_ST <= -0.03
+|   |   |   |   |   |--- class: 1.0
+|   |   |   |   |--- Độ_Chênh_ST >  -0.03
+|   |   |   |   |   |--- Cholesterol_Tuoi <= -0.23
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |--- Cholesterol_Tuoi >  -0.23
+|   |   |   |   |   |   |--- truncated branch of depth 2
+|   |--- Độ_Dốc_ST_Flat >  0.50
+|   |   |--- Điện_Tâm_Đồ_ST <= 0.50
+|   |   |   |--- Điện_Tâm_Đồ_Normal <= 0.50
+|   |   |   |   |--- Huyết_Áp_Nghỉ <= -1.20
+|   |   |   |   |   |--- class: 0.0
+|   |   |   |   |--- Huyết_Áp_Nghỉ >  -1.20
+|   |   |   |   |   |--- Đau_Thắt_Vận_Động <= 0.50
+|   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |--- Đau_Thắt_Vận_Động >  0.50
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |--- Điện_Tâm_Đồ_Normal >  0.50
+|   |   |   |   |--- Giới_tính <= 0.50
+|   |   |   |   |   |--- Huyết_Áp_Nghỉ <= 0.20
+|   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |--- Huyết_Áp_Nghỉ >  0.20
+|   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |--- Giới_tính >  0.50
+|   |   |   |   |   |--- Cholesterol_Tuoi <= -0.15
+|   |   |   |   |   |   |--- truncated branch of depth 3
+|   |   |   |   |   |--- Cholesterol_Tuoi >  -0.15
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |--- Điện_Tâm_Đồ_ST >  0.50
+|   |   |   |--- Cholesterol_Tuoi <= -0.63
+|   |   |   |   |--- Cholesterol <= -0.34
+|   |   |   |   |   |--- class: 1.0
+|   |   |   |   |--- Cholesterol >  -0.34
+|   |   |   |   |   |--- class: 0.0
+|   |   |   |--- Cholesterol_Tuoi >  -0.63
+|   |   |   |   |--- class: 1.0
+|--- Nhịp_Tim_Tối_Đa >  -0.21
+|   |--- Độ_Dốc_ST_Up <= 0.50
+|   |   |--- Độ_Chênh_ST <= 1.17
+|   |   |   |--- Độ_Chênh_ST <= -0.30
+|   |   |   |   |--- Cholesterol <= 0.42
+|   |   |   |   |   |--- Tuổi <= 0.19
+|   |   |   |   |   |   |--- truncated branch of depth 4
+|   |   |   |   |   |--- Tuổi >  0.19
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |--- Cholesterol >  0.42
+|   |   |   |   |   |--- Cholesterol <= 0.69
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Cholesterol >  0.69
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |--- Độ_Chênh_ST >  -0.30
+|   |   |   |   |--- Điện_Tâm_Đồ_ST <= 0.50
+|   |   |   |   |   |--- Cholesterol <= -0.22
+|   |   |   |   |   |   |--- truncated branch of depth 4
+|   |   |   |   |   |--- Cholesterol >  -0.22
+|   |   |   |   |   |   |--- truncated branch of depth 5
+|   |   |   |   |--- Điện_Tâm_Đồ_ST >  0.50
+|   |   |   |   |   |--- Đường_Huyết_Đói <= 0.50
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |--- Đường_Huyết_Đói >  0.50
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |--- Độ_Chênh_ST >  1.17
+|   |   |   |--- Điện_Tâm_Đồ_ST <= 0.50
+|   |   |   |   |--- NguyCo_TimMach_RatCao <= 0.50
+|   |   |   |   |   |--- Điện_Tâm_Đồ_Normal <= 0.50
+|   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |--- Điện_Tâm_Đồ_Normal >  0.50
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |--- NguyCo_TimMach_RatCao >  0.50
+|   |   |   |   |   |--- Huyết_Áp_Nghỉ <= 1.70
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |--- Huyết_Áp_Nghỉ >  1.70
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |--- Điện_Tâm_Đồ_ST >  0.50
+|   |   |   |   |--- class: 0.0
+|   |--- Độ_Dốc_ST_Up >  0.50
+|   |   |--- Giới_tính <= 0.50
+|   |   |   |--- Huyết_Áp_Nghỉ <= -1.18
+|   |   |   |   |--- Tuổi <= -1.08
+|   |   |   |   |   |--- class: 1.0
+|   |   |   |   |--- Tuổi >  -1.08
+|   |   |   |   |   |--- class: 0.0
+|   |   |   |--- Huyết_Áp_Nghỉ >  -1.18
+|   |   |   |   |--- Tuổi <= 0.38
+|   |   |   |   |   |--- class: 0.0
+|   |   |   |   |--- Tuổi >  0.38
+|   |   |   |   |   |--- Điện_Tâm_Đồ_Normal <= 0.50
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |   |--- Điện_Tâm_Đồ_Normal >  0.50
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |--- Giới_tính >  0.50
+|   |   |   |--- Loại_Đau_Ngực_ATA <= 0.50
+|   |   |   |   |--- Cholesterol <= -0.25
+|   |   |   |   |   |--- Tuổi <= 0.27
+|   |   |   |   |   |   |--- truncated branch of depth 4
+|   |   |   |   |   |--- Tuổi >  0.27
+|   |   |   |   |   |   |--- truncated branch of depth 3
+|   |   |   |   |--- Cholesterol >  -0.25
+|   |   |   |   |   |--- Huyết_Áp_Nghỉ <= 0.05
+|   |   |   |   |   |   |--- truncated branch of depth 5
+|   |   |   |   |   |--- Huyết_Áp_Nghỉ >  0.05
+|   |   |   |   |   |   |--- truncated branch of depth 3
+|   |   |   |--- Loại_Đau_Ngực_ATA >  0.50
+|   |   |   |   |--- Điện_Tâm_Đồ_Normal <= 0.50
+|   |   |   |   |   |--- Huyết_Áp_Nghỉ <= 0.85
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Huyết_Áp_Nghỉ >  0.85
+|   |   |   |   |   |   |--- class: 1.0
+|   |   |   |   |--- Điện_Tâm_Đồ_Normal >  0.50
+|   |   |   |   |   |--- Nhịp_Tim_Tối_Đa <= 0.14
+|   |   |   |   |   |   |--- class: 0.0
+|   |   |   |   |   |--- Nhịp_Tim_Tối_Đa >  0.14
+|   |   |   |   |   |   |--- class: 0.0
+
+
+ Đang tạo biểu đồ cây quyết định...
+    Đã lưu: RF_Decision_Tree.png
+
+============================================================
+VII. PHÁT HIỆN MẪU ẨN (HIDDEN PATTERNS)
+============================================================
+ Trích xuất các quy luật: Triệu chứng A + B + C → Bệnh Tim
+
+ Dang trich xuat quy luat tu 50 cay trong Random Forest...
+ Trich xuat duoc 89 quy luat benh tim tu 50 cay
+ Hien thi 5 mau dai dien (3 cao nhat + 2 thap nhat):
+
+1. NEU:
+      + Độ_Dốc_ST_Up <= 0.50
+      + Giới_tính > 0.50
+      + Độ_Chênh_ST <= -0.30
+   → KET LUAN: Nguy co benh tim Rat cao (100%)
+   → Can cu: 51 benh nhan trong tap huan luyen
+
+
+2. NEU:
+      + Độ_Chênh_ST > -0.03
+      + Độ_Chênh_ST > 1.23
+      + Huyết_Áp_Nghỉ > -1.27
+   → KET LUAN: Nguy co benh tim Rat cao (100%)
+   → Can cu: 44 benh nhan trong tap huan luyen
+
+
+3. NEU:
+      + Độ_Dốc_ST_Flat > 0.50
+      + Loại_Đau_Ngực_NAP <= 0.50
+      + Đường_Huyết_Đói > 0.50
+      + Độ_Chênh_ST <= 0.93
+   → KET LUAN: Nguy co benh tim Rat cao (100%)
+   → Can cu: 44 benh nhan trong tap huan luyen
+
+
+4. NEU:
+      + Loại_Đau_Ngực_NAP > 0.50
+      + Đau_Thắt_Vận_Động > 0.50
+      + Nhịp_Tim_Tối_Đa <= 0.36
+      + Huyết_Áp_Nghỉ <= -0.88
+   → KET LUAN: Nguy co benh tim Trung binh (33%)
+   → Can cu: 3 benh nhan trong tap huan luyen
+
+
+5. NEU:
+      + Đau_Thắt_Vận_Động > 0.50
+      + Loại_Đau_Ngực_TA > 0.50
+   → KET LUAN: Nguy co benh tim Trung binh (40%)
+   → Can cu: 3 benh nhan trong tap huan luyen
+
+
+
+============================================================
+VIII. LUU MO HINH
+============================================================
+ Đã lưu mô hình Random Forest: random_forest.pkl
+ Đã lưu metadata: rf_metadata.pkl
+
+============================================================
+ HOÀN THÀNH!
+============================================================
+ Tóm tắt kết quả:
+   - Ngưỡng tối ưu: 0.5491
+   - Test Accuracy: 0.8913
+   - Test Recall: 0.9510
+   - AUC-ROC: 0.9232
+   - False Negatives: 5 (Bỏ sót 5 bệnh nhân)
+
+ Các file output đã được lưu tại: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs/figures
+ File log đã được lưu tại: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs\RandomForest_log.txt

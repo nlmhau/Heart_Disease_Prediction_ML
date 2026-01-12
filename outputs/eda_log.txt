@@ -1,0 +1,104 @@
+======================================================================
+I. TẢI DỮ LIỆU TỪ FILE ĐÃ XỬ LÝ (DECOUPLED)
+======================================================================
+ [OK] Dataset: (918, 14)
+ [OK] Biến số (6): ['Tuổi', 'Huyết_Áp_Nghỉ', 'Cholesterol', 'Nhịp_Tim_Tối_Đa', 'Độ_Chênh_ST', 'Cholesterol_Tuoi']
+ [OK] Biến phân loại (7): ['Giới_tính', 'Loại_Đau_Ngực', 'Điện_Tâm_Đồ', 'Đau_Thắt_Vận_Động', 'Độ_Dốc_ST', 'Đường_Huyết_Đói', 'NguyCo_TimMach_RatCao']
+
+======================================================================
+II. PHÂN TÍCH THỐNG KÊ & ĐÁNH GIÁ FEATURE
+======================================================================
+
+1. ĐÁNH GIÁ BIẾN SỐ (MEAN DIFFERENCE)
+-----------------------------------------------------------------
+Biến số              | Khỏe       | Bệnh       | Đánh giá
+-----------------------------------------------------------------
+Tuổi                 | 50.6       | 55.9       |  Có tiềm năng
+Huyết_Áp_Nghỉ        | 130.2      | 134.4      |  Ít khác biệt
+Cholesterol          | 239.6      | 251.1      |  Ít khác biệt
+Nhịp_Tim_Tối_Đa      | 148.2      | 127.7      |  Có tiềm năng
+Độ_Chênh_ST          | 0.4        | 1.3        |  Tốt (Khác biệt lớn)
+Cholesterol_Tuoi     | 4.9        | 4.6        |  Có tiềm năng
+
+2. ĐÁNH GIÁ BIẾN PHÂN LOẠI (RISK RATIO)
+------------------------------------------------------------
+
+ Phân tích: Giới_tính
+Bệnh_Tim      0     1
+Giới_tính            
+F          74.1  25.9
+M          36.8  63.2
+  => PHÁT HIỆN: Nhóm ['M'] có tỷ lệ bệnh > 60% (Nguy cơ cao)
+
+ Phân tích: Loại_Đau_Ngực
+Bệnh_Tim          0     1
+Loại_Đau_Ngực            
+ASY            21.0  79.0
+ATA            86.1  13.9
+NAP            64.5  35.5
+TA             56.5  43.5
+  => PHÁT HIỆN: Nhóm ['ASY'] có tỷ lệ bệnh > 60% (Nguy cơ cao)
+
+ Phân tích: Điện_Tâm_Đồ
+Bệnh_Tim        0     1
+Điện_Tâm_Đồ            
+LVH          43.6  56.4
+Normal       48.4  51.6
+ST           34.3  65.7
+  => PHÁT HIỆN: Nhóm ['ST'] có tỷ lệ bệnh > 60% (Nguy cơ cao)
+
+ Phân tích: Đau_Thắt_Vận_Động
+Bệnh_Tim              0     1
+Đau_Thắt_Vận_Động            
+N                  64.9  35.1
+Y                  14.8  85.2
+  => PHÁT HIỆN: Nhóm ['Y'] có tỷ lệ bệnh > 60% (Nguy cơ cao)
+
+ Phân tích: Độ_Dốc_ST
+Bệnh_Tim      0     1
+Độ_Dốc_ST            
+Down       22.2  77.8
+Flat       17.2  82.8
+Up         80.3  19.7
+  => PHÁT HIỆN: Nhóm ['Down', 'Flat'] có tỷ lệ bệnh > 60% (Nguy cơ cao)
+
+ Phân tích: Đường_Huyết_Đói
+Bệnh_Tim            0     1
+Đường_Huyết_Đói            
+0                52.0  48.0
+1                20.6  79.4
+  => PHÁT HIỆN: Nhóm [1] có tỷ lệ bệnh > 60% (Nguy cơ cao)
+
+ Phân tích: NguyCo_TimMach_RatCao
+Bệnh_Tim                  0     1
+NguyCo_TimMach_RatCao            
+0                      45.9  54.1
+1                      38.2  61.8
+  => PHÁT HIỆN: Nhóm [1] có tỷ lệ bệnh > 60% (Nguy cơ cao)
+
+======================================================================
+III. TRỰC QUAN HÓA DỮ LIỆU
+======================================================================
+  [SAVED PLOT] 1_Target.png
+  Dang ve bieu do bien so...
+  [SAVED PLOT] Num_Tuổi.png
+  [SAVED PLOT] Num_Huyết_Áp_Nghỉ.png
+  [SAVED PLOT] Num_Cholesterol.png
+  [SAVED PLOT] Num_Nhịp_Tim_Tối_Đa.png
+  [SAVED PLOT] Num_Độ_Chênh_ST.png
+  [SAVED PLOT] Num_Cholesterol_Tuoi.png
+  Dang ve bieu do bien phan loai...
+  [SAVED PLOT] Cat_Giới_tính.png
+  [SAVED PLOT] Cat_Loại_Đau_Ngực.png
+  [SAVED PLOT] Cat_Điện_Tâm_Đồ.png
+  [SAVED PLOT] Cat_Đau_Thắt_Vận_Động.png
+  [SAVED PLOT] Cat_Độ_Dốc_ST.png
+  [SAVED PLOT] Cat_Đường_Huyết_Đói.png
+  [SAVED PLOT] Cat_NguyCo_TimMach_RatCao.png
+  Dang ve Heatmap...
+  [SAVED PLOT] Correlation_Matrix.png
+
+======================================================================
+ [HOAN THANH] Anh luu tai: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs/figures
+ [LOG FILE] File log da luu tai: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs\eda_log.txt
+======================================================================

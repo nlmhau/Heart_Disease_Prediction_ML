@@ -1,0 +1,131 @@
+============================================================
+I. LOAD DỮ LIỆU & CHUẨN BỊ
+============================================================
+ Da load du lieu: Train (734, 17), Test (184, 17)
+ - So dac trung: 17
+ - Phan bo lop (train): Khoe=328, Benh=406
+ - Phan bo lop (test): Khoe=82, Benh=102
+
+============================================================
+II. HUẤN LUYỆN & TỐI ƯU HÓA (GRID SEARCH)
+============================================================
+ Dang tim tham so toi uu (GridSearchCV)...
+ - Tong so to hop tham so: 36
+ - So fold cross-validation: 5
+ - Tieu chi danh gia: Recall (uu tien phat hien benh nhan)
+
+ Hoan thanh Grid Search!
+ - Best Params: {'learning_rate': 0.01, 'max_depth': 3, 'n_estimators': 100, 'scale_pos_weight': 2, 'subsample': 0.8}
+ - Best CV Recall: 0.9484
+ - Thoi gian train: Da hoan thanh
+
+============================================================
+III. TỐI ƯU HÓA NGƯỠNG DỰ ĐOÁN (THRESHOLD TUNING)
+============================================================
+ Tìm ngưỡng cắt tối ưu (thay vì 0.5) để tối đa hóa F1-Score.
+ Nguong toi uu: 0.6711
+   -> Precision=0.8362 | Recall=0.9510
+
+============================================================
+KET QUA TREN TAP TEST
+============================================================
+              precision    recall  f1-score   support
+
+        Khoe     0.9265    0.7683    0.8400        82
+        Benh     0.8362    0.9510    0.8899       102
+
+    accuracy                         0.8696       184
+   macro avg     0.8813    0.8596    0.8650       184
+weighted avg     0.8764    0.8696    0.8677       184
+
+
+ AUC-ROC Score: 0.9064
+
+ Confusion Matrix:
+   - True Negatives (TN): 63 (Du doan dung nguoi khoe)
+   - False Positives (FP): 19 (Du doan nham nguoi khoe thanh benh)
+   - False Negatives (FN): 5 (BO SOT nguoi benh - quan trong!)
+   - True Positives (TP): 97 (Du doan dung nguoi benh)
+
+============================================================
+IV. TAO BIEU DO DANH GIA
+============================================================
+   Da luu: XGBoost_ROC.png
+   Da luu: XGBoost_Confusion_Matrix.png
+
+============================================================
+V. PHAN TICH DO QUAN TRONG DAC TRUNG
+============================================================
+ Dang tinh toan Feature Importance...
+
+ Top 10 dac trung anh huong nhat:
+   1. Độ_Dốc_ST_Up              -> 0.4431
+   2. Độ_Chênh_ST               -> 0.0890
+   3. Đau_Thắt_Vận_Động         -> 0.0779
+   4. Đường_Huyết_Đói           -> 0.0518
+   5. Loại_Đau_Ngực_NAP         -> 0.0482
+   6. Loại_Đau_Ngực_ATA         -> 0.0469
+   7. Giới_tính                 -> 0.0456
+   8. Điện_Tâm_Đồ_Normal        -> 0.0356
+   9. Nhịp_Tim_Tối_Đa           -> 0.0331
+   10. Cholesterol               -> 0.0321
+   Da luu: XGBoost_Feature_Importance.png
+
+============================================================
+VII. PHAT HIEN MAU AN (HIDDEN PATTERNS)
+============================================================
+ Trich xuat cac quy luat: Trieu chung A + B + C → Benh Tim
+
+ Trich xuat duoc 5 patterns tu XGBoost
+ Hien thi top 5 mau dai dien theo cac muc do rui ro:
+
+1. NEU:
+      + Độ_Chênh_ST > 0.67
+      + Đường_Huyết_Đói > 0.00
+   → KET LUAN: Nguy co benh tim 92%
+   → Can cu: XGBoost phan tich tu 57 benh nhan
+   → Ghi chu: Muc do trieu chung KHAC NHAU giua cac nhom
+
+2. NEU:
+      + Độ_Chênh_ST > 0.75
+   → KET LUAN: Nguy co benh tim 92%
+   → Can cu: XGBoost phan tich tu 57 benh nhan
+
+3. NEU:
+      + Độ_Chênh_ST > 0.67
+      + Đường_Huyết_Đói > 0.00
+   → KET LUAN: Nguy co benh tim 77%
+   → Can cu: XGBoost phan tich tu 36 benh nhan
+   → Ghi chu: Muc do trieu chung KHAC NHAU giua cac nhom
+
+4. NEU:
+      + Độ_Chênh_ST > 0.53
+      + Đau_Thắt_Vận_Động > 0.00
+   → KET LUAN: Nguy co benh tim 62%
+   → Can cu: XGBoost phan tich tu 4 benh nhan
+   → Ghi chu: Muc do trieu chung KHAC NHAU giua cac nhom
+
+5. NEU:
+      + Độ_Chênh_ST > -0.60
+   → KET LUAN: Nguy co benh tim 48%
+   → Can cu: XGBoost phan tich tu 2 benh nhan
+
+
+============================================================
+VIII. LUU MO HINH
+============================================================
+ Da luu mo hinh XGBoost: xgboost.pkl
+ Da luu metadata: xgboost_metadata.pkl
+
+============================================================
+ HOAN THANH!
+============================================================
+ Tom tat ket qua:
+   - Nguong toi uu: 0.6711
+   - Test Accuracy: 0.8696
+   - Test Recall: 0.9510
+   - AUC-ROC: 0.9064
+   - False Negatives: 5 (Bo sot 5 benh nhan)
+
+ Cac file output da duoc luu tai: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs/figures
+ File log da duoc luu tai: d:\Dataset\Machine_Learning\S26-65TTNT_Nhom7_DuDoanBenhTim\src\../outputs\XGBoost_log.txt
