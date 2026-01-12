@@ -144,8 +144,7 @@ S26-65TTNT_Nhom7_DuDoanBenhTim/
 │   ├── NeuralNetwork_log.txt              # Log huấn luyện NN
 │   ├── Evaluation_log.txt                 # Log đánh giá
 │   └── Evaluation_Report.txt              # Báo cáo tổng hợp
-│ 
-├── generate_report.py                     # Script tạo báo cáo Word
+│
 ├── requirements.txt                       # Dependencies
 ├── README.md                              # File này
 └── .venv/                                 # Virtual environment
@@ -444,7 +443,20 @@ streamlit run src/app.py
 
 ---
 
-## 👥 Thành Viên Nhóm
+##  Báo Cáo Chi Tiết
+
+**📥 Download Báo Cáo Đầy Đủ:** [N7_report.pdf](reports/N7_report.pdf)
+
+Báo cáo bao gồm:
+- Phân tích chi tiết về dataset và EDA
+- Giải thích từng bước tiền xử lý dữ liệu
+- Kết quả huấn luyện và đánh giá 3 mô hình
+- So sánh hiệu năng và phân tích Hidden Patterns
+- Kết luận và hướng phát triển
+
+---
+
+##  Thành Viên Nhóm
 
 | STT | Họ Tên | MSSV | Nhiệm Vụ | Đóng Góp |
 |-----|--------|------|----------|----------|
